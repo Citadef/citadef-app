@@ -30,7 +30,6 @@ function CardMainpage(props) {
                     <Link to={personal_page}><h4> {props.nick} </h4></Link>
                     {/*<div className="WNFT-mainpage-moreinfo">  </div>*/}
                     <div className="WNFT-mainpage-score">#{props.seed} </div>
-                    {/*<div className="WNFT-mainpage-price">0.5 ETH </div>*/}
                     <div className="WNFT-mainpage-buyorbid"> Posts: </div>
                     <div className="WNFT-mainpage-num"> {numPosts} </div>
 
