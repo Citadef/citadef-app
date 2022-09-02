@@ -2,6 +2,8 @@ import { memo } from "react";
 import { useHistory } from "react-router-dom";
 
 class GroovyFish {
+    r=0;
+
     /** Sand id for path names, not to have two fishes with the same pathname if a fish is generated twice in the same page */
     getRandomInt(max) {
       return Math.floor(Math.random() * max);
@@ -30,11 +32,8 @@ class GroovyFish {
         }
     }
 
-    draw(svg, size, frame) {
-        let r = size/3.5;
-        let points_num = Math.round(8+this.rand()*4);
-
-        let points = this.randomPointsNearCircle(points_num, size/2, size/2, r);
+    draw(svg, size, points, frame) {
+        let r = this.r;
 
         // fish colors
         let pastel1 = this.getPastelColor();
@@ -92,6 +91,15 @@ class GroovyFish {
         svg.appendChild(rect);
 
         return svg;
+    }
+
+    generateRandomPoint(size) {
+        this.r = size/3.5;
+        let points_num = Math.round(8+this.rand()*4);
+
+        let points = this.randomPointsNearCircle(points_num, size/2, size/2, this.r);
+
+        return points;
     }
 
     addMultyBezier(points, svg, clip_path_name) {
@@ -297,6 +305,36 @@ class GroovyFish {
                    (25 + 70 * this.rand()) + '%,' + 
                    (85 + 10 * this.rand()) + '%)'
     }
+
+    // Returns the coordinates of a rectangle that bounds the fish tightly
+    getFishBoundingRectangle(points){
+        let x_right = points[0].x;
+        let x_left = points[0].x;
+        let y_top = points[0].y;
+        let y_bottom = points[0].y;
+
+        for (let i=1; i<points.length; i++){
+            if (points[i].x < x_right)
+                x_right = points[i].x;
+
+            if (points[i].x > x_left)
+                x_left = points[i].x;
+
+            if (points[i].y > y_top)
+                y_top = points[i].y;
+
+            if (points[i].y < y_bottom)
+                y_bottom = points[i].y;
+        }
+
+        x_right -= 80;
+        x_left += 80;
+        y_bottom -= 80;
+        y_top += 80;
+
+        return {x_right, x_left, y_top, y_bottom};
+
+    }
 }
 
 function xmur3(str) {
@@ -315,10 +353,12 @@ function Fish(props) {
     var seed_num = props.seed;
     var seed_func = xmur3(seed_num.toString());
 
+    let fish = new GroovyFish(seed_func, seed_num);
+    let points = fish.generateRandomPoint(props.size);
+
     svg = createEmptySVG(svg, props.size, props.size, props.direction || "right");
 
-    let fish = new GroovyFish(seed_func, seed_num);
-    fish.draw(svg, props.size, props.frame || "rectangle");
+    fish.draw(svg, props.size, points, props.frame || "rectangle");
 
     function createEmptySVG(elem, width, height, direction) {
         // let elem = document.getElementById(id);

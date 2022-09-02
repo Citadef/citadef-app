@@ -92,12 +92,8 @@ const fetchFishes = async (props) => {
                 chainId = await window.ethereum.request({ method: 'eth_chainId' });
         }catch{}
 
-        console.log("chainId: ", chainId);
-
         const provider = (window.ethereum && chainId === getNetChainIdHex(CONTRACT_CHAIN) && new ethers.providers.Web3Provider(window.ethereum )) || new ethers.providers.JsonRpcProvider(getRpcUrl(CONTRACT_CHAIN));
-
-        console.log("provider: ", provider);
-
+ 
         const signer = provider.getSigner(0);
         if (signer !== null) {
 
@@ -105,9 +101,7 @@ const fetchFishes = async (props) => {
             let WNFTabi = wnftDataAbi.abi;
             let NFTW_contract = new ethers.Contract(NFTWContractAddress, WNFTabi, provider);
 
-            console.log("NFTW_contract: ", NFTW_contract);
             const contractMinted = await NFTW_contract.amount();
-            console.log("contractMinted: ", contractMinted);
             const contractMintedInt = parseInt(contractMinted._hex, 16)
             props.setMinted(contractMinted.toNumber());
             
@@ -130,6 +124,8 @@ const fetchFishes = async (props) => {
         console.error(error);
     }
 }
+
+
 
 
 const WnftData = (props) => {
