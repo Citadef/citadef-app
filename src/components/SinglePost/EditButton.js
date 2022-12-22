@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import {ownThisFish} from "../loadingProcess";
+import ownThisFish from "components/loadingProcess/ownThisFish";
 
 
 function EditButton(props) {

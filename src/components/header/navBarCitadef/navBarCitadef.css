@@ -1,0 +1,12 @@
+/* logo */
+
+header .logo {
+    font-family: var(--body-font);
+    color: #fff;
+    font-size: 40px;
+    font-weight: 300;
+}
+
+.logo {
+    height: 40px;
+}

@@ -1,42 +1,32 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { HashRouter as Router, Switch, Route } from "react-router-dom";
 
-import Header from "./components/header";
-import Footer from "./components/footer";
-import LandingScreen from "./components/landingScreen"
-import Citadef from "./components/Citadef"
-import SelectWNFTtoMint from "./components/selectWNFTtoMint"
-import MintWNFTScreen from "./components/MintWnft/MintWNFTScreen"
-import EditWnft from "./components/EditWnft/EditWnft"
-import FishPersonal from "./components/FishPersonal"
-import SinglePost from "./components/SinglePost/SinglePost"
-import EditPost from "./components/EditPost/EditPost"
-import NewPost from "./components/EditPost/NewPost"
-import {Error404, UnderConstruction} from "./components/loadingProcess"
-import About from "./components/about"
-
-import ScrollToTop from "./components/scroll_to_top";
-
-import WnftData from "./components/WnftData/WnftData";
-import invitationTokensAmount from "./components/InvitationTokenData/InvitationTokenData";
-import useIpfsFactory from "./components/hooks/useIpfsFactory"
-import ExploreFishes from "./components/ExploreFishes/ExploreFishes";
-
-import './components/WNFTABI.js'; 
+import Header from "components/header";
+import Footer from "components/footer";
+import LandingScreen from "components/landingScreen"
+import Citadef from "components/citadef"
+import SelectWNFTtoMint from "components/mintAndEditFish/selectWNFTtoMint"
+import MintFish from "components/mintAndEditFish/mintFish"
+import EditFish from "components/mintAndEditFish/editFish"
+import FishPersonal from "components/fishPersonal"
+import SinglePost from "components/SinglePost/SinglePost"
+import EditPost from "components/editPost"
+import UnderConstruction from "components/errorPages/underConstruction"
+import Error404 from "components/errorPages/error404"
+import About from "components/about"
+import LoadPage  from "components/loadingProcess/loadPage";
 
 
-//TODO:
-//3. Change 'Manage Fish' to 'My Fish' and lead to personal fish page
-//4. Change main screen for 15 fishes
-//5. Link Explore to Citadef part
-//6. Write that search is inactive now
-//7. Create 'feature doesn't exist yet' screen
-//8. Footer
-//9. Make sure post starts with title
-//10. Limit to 5 posts (no pagination yet message)
-//11. Fix markdown style in single post view
-//12. fix size of preview screen in 'edit post page' and in 'new post'
-//13. what to do if we got 1500 fishes?
+import WnftData from "components/contracts/wnftData";
+import useIpfsFactory from "components/hooks/useIpfsFactory"
+import ExploreFishes from "components/exploreFishes";
+import ScrollToTop from "./scrollToTop";
+
+import 'components/contracts/ABIs/WNFTABI.js'; 
+
+import 'App.css'
+import 'css/buttons.css'
+
 function App() {
   const [provider, setProvider] = useState(null);
   const [NFTWContract, setNFTWContract] = useState(null);
@@ -71,9 +61,6 @@ function App() {
               if (res !== walletAddress) 
                 setWalletAddress(res[0]);
 
-              // if (await invitationTokensAmount(res[0]) >= InvitationTokensNeeded)
-              //   setHasInvitationToken(true);
-
               if (fishOwners[res[0]]) 
                 setOwnFish(true);
             }
@@ -81,6 +68,10 @@ function App() {
       }
     }
   }
+
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
 
   const headerObj = (<Header provider={provider} setProvider={setProvider}
                         NFTWContract={NFTWContract} setNFTWContract={setNFTWContract}
@@ -93,81 +84,125 @@ function App() {
     <Router basename="/">
       <WnftData setMinted={setMinted} setFishes={setFishes} setFishowners={setFishowners}  ipfs={ipfs} isIpfsReady={isIpfsReady} maxAllowedMinting={maxAllowedMinting} setMaxAllowedMinting={setMaxAllowedMinting} />
       {headerObj}
-    <ScrollToTop />
       <Switch>
+        // landing page
         <Route exact path="/">
-         
+          <ScrollToTop />
           <LandingScreen/>
           <Citadef fishes={fishes} minted={minted} />
 
           <div className="bg-main-top"></div>
-          <div className="bg-main-bottom"></div>
         </Route>
+        
+        // explore fishes page
         <Route path="/explore">
-
+          <ScrollToTop />
           <ExploreFishes fishes={fishes} minted={minted} />
 
           <div className="bg-main-top"></div>
         </Route>
+        
+        // select fish to mint page
         <Route path="/mint/select">
-
+          <ScrollToTop />
           <SelectWNFTtoMint minted={minted} maxAllowedMinting={maxAllowedMinting} />
 
           <div className="bg-main-top"></div>
         </Route>
+        
+        // mint a fish page
         <Route path="/mint/details/:seed">
-
-          <MintWNFTScreen NFTWWithSigner={NFTWWithSigner} provider={provider} walletAddress={walletAddress}  ipfs={ipfs} isIpfsReady={isIpfsReady} />
+          <ScrollToTop />
+          <MintFish NFTWWithSigner={NFTWWithSigner} provider={provider} walletAddress={walletAddress}  ipfs={ipfs} isIpfsReady={isIpfsReady} />
 
         </Route>
+        
+        // edit your fish page
         <Route path="/personal/edit/:seed">
-
-          <EditWnft NFTWWithSigner={NFTWWithSigner} fishes={fishes} walletAddress={walletAddress}  ipfs={ipfs} isIpfsReady={isIpfsReady} />
+          <ScrollToTop />
+          <LoadPage 
+            fishes={fishes} access={true} walletAddress={walletAddress} 
+            fishOwners = {fishOwners} 
+            page={<EditFish 
+              NFTWWithSigner={NFTWWithSigner} fishes={fishes} walletAddress={walletAddress}
+              ipfs={ipfs} isIpfsReady={isIpfsReady}
+            />} 
+          />
 
         </Route>
-        <Route path="/personal/post/edit/:seed/:post">
-
-          <EditPost 
-            NFTWWithSigner= {NFTWWithSigner}
-            fishes ={fishes}
-            walletAddress={walletAddress}
-            fishOwners={fishOwners}
-            ipfs={ipfs} isIpfsReady={isIpfsReady}
+        
+        // edit a post page
+        <Route path="/personal/post/edit/:seed/:postId">
+          <ScrollToTop />
+          <LoadPage 
+            fishes={fishes} access={true} walletAddress={walletAddress} 
+            fishOwners = {fishOwners} 
+            page={<EditPost 
+              fishes={fishes} NFTWWithSigner={NFTWWithSigner} 
+              ipfs={ipfs} isIpfsReady={isIpfsReady}
+            />} 
           />
 
           <div className="bg-blog-top"></div>
         </Route>
+        
+        // show a post page
         <Route path="/personal/post/:seed/:post">
-
-          <SinglePost fishes ={fishes} walletAddress={walletAddress} fishOwners = {fishOwners}  />
+          <ScrollToTop />
+          <LoadPage 
+            fishes={fishes} access={false} walletAddress={null} fishOwners = {null} 
+            page={<SinglePost  
+              fishes={fishes} walletAddress={walletAddress} fishOwners = {fishOwners}
+            />} 
+          />
 
         </Route>
+        
+        // publish a new post page.
+        // Newpost uses Editpost, as writing a new post is 
+        // like editing an empty post.
         <Route path="/personal/new/:seed">
+          <ScrollToTop />
 
-          <NewPost 
-            NFTWWithSigner= {NFTWWithSigner}
-            fishes ={fishes}
-            walletAddress={walletAddress}
-            fishOwners={fishOwners}
-            ipfs={ipfs} isIpfsReady={isIpfsReady}
+          <LoadPage 
+            fishes={fishes} access={true} walletAddress={walletAddress} 
+            fishOwners = {fishOwners} 
+            page={<EditPost 
+              fishes={fishes} NFTWWithSigner={NFTWWithSigner}
+              ipfs={ipfs} isIpfsReady={isIpfsReady}
+            />} 
           />
 
           <div className="bg-blog-top"> </div>
         </Route>
-        <Route path="/personal/:seed">
 
-          <FishPersonal fishes ={fishes} ownFish={ownFish} walletAddress={walletAddress} fishOwners = {fishOwners}/>
+        // personal blog of a fish page. The page parameter tells
+        // Loadpage which page to load in case the fishe exists.
+        <Route path="/personal/:seed">
+          <ScrollToTop />
+          <LoadPage 
+            fishes={fishes} post={false} access={false} 
+            page={<FishPersonal 
+                      fishes={fishes} ownFish={ownFish} 
+                      walletAddress={walletAddress} fishOwners={fishOwners}
+                  />
+            } 
+        />
 
           <div className="bg-blog-top"> </div>
         </Route>
-        <Route path="/404">
 
+        // 404 error page
+        <Route path="/404">
+          <ScrollToTop />
           <Error404/>
 
           <div className="bg-blog-top"> </div>
         </Route>
+        
+        // about page
         <Route path="/about">
-
+          <ScrollToTop />
           <About/>
 
           <div className="bg-main-top"></div>
@@ -177,7 +212,7 @@ function App() {
          * Screens which are still under construction
          **********************************************/
         <Route path="/govern">
-
+          <ScrollToTop />
           <UnderConstruction 
             title="governing section"
             reason="Governing will come once the decentralized accounts and blogging is more stable. Recall, the idea is that one full member = one vote, but it should take a while to gain enough reputation to become a full member."/>
@@ -185,7 +220,7 @@ function App() {
           <div className="bg-main-top"></div>
         </Route>
         <Route path="/world">
-
+          <ScrollToTop />
           <UnderConstruction 
             title="Virtual Fish world"
             reason="A virtual fish world is just something that sounds cool in our head, but we actually have no idea what do we mean by this. Suggestions are welcomed!"/>
@@ -193,7 +228,7 @@ function App() {
           <div className="bg-main-top"></div>
         </Route>
         <Route path="/plot">
-
+          <ScrollToTop />
           <UnderConstruction 
             title="Plot in the Virtual Fish world"
             reason="A virtual fish world is just something that sounds cool in our head, and even cooler then this, it sounds nice to have a plot in this world. However, we really don't know what it means yet."/>
@@ -201,7 +236,7 @@ function App() {
           <div className="bg-main-top"></div>
         </Route>
         <Route path="/democraticweb">
-       
+          <ScrollToTop />
           <UnderConstruction 
             title="Democratic Web"
             reason="Here should be a link to an article of our vision to what the democratic web should be like. Alas, we did not write it yet! So, be patient, and don't wait in the sun."/>
@@ -209,7 +244,7 @@ function App() {
           <div className="bg-main-top"></div>
         </Route>
         <Route path="/mailinglist">
-        
+          <ScrollToTop />
           <UnderConstruction 
             title="Mailing List"
             reason="We don't have a mailing list yet. Not sure we will ever have. But we needed another link to put in the footer, and mailing list sounds 'professional', right?"/>

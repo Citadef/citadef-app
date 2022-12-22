@@ -1,0 +1,9 @@
+.blacklink a:link,
+.blacklink a:visited  {
+    color: black;
+}
+
+.bluelink a:link,
+.bluelink a:visited  {
+    color: #5514AC;
+}

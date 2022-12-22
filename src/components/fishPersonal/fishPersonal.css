@@ -1,0 +1,17 @@
+.edit-fish img {
+    width:  20px;
+    height:  20px;
+}
+
+.profile_name {
+    display: flex;
+    align-items: center;
+    display: block;
+    margin: 0 auto;
+    text-align: center;
+    margin-left: 20px;
+}
+
+.d_profile {
+    margin-bottom: 40px;
+}

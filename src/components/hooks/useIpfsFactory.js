@@ -1,6 +1,6 @@
 import { create } from 'ipfs-http-client'
 import { useEffect, useState } from 'react'
-import {CITADEF_IPFS_NODE} from "../ipfs"
+import {CITADEF_IPFS_NODE} from "components/ipfsUtils"
 
 let ipfs = null
 

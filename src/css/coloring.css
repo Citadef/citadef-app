@@ -11,32 +11,11 @@
     color:  #1A0646;
 }
 
-/*.dark-scheme  {
-    background: var(--primary-color);
-}
-
-
-
-body.dark-scheme,
-body.dark-scheme #content,
-.dark-scheme section,
-.dark-scheme header:not(.transparent),
-.dark-scheme footer,
-.dark-scheme .feature-box.f-boxed.style-3,
-.dark-scheme header.header-mobile,
-.dark-scheme .dropdown li span,
-.dark-scheme .dropdown li span:hover {
-    background: #212428;
-}
-*/
 
 /* default color: #fa6a2e  */
 .bg-color,
-header,
 section.bg-color,
 section.call-to-action,
-#mainmenu li li a:hover,
-#mainmenu ul li:hover>a,
 .price-row,
 .slider-info .text1,
 .btn-primary,
@@ -57,11 +36,9 @@ section.call-to-action,
 .btn-more,
 .widget .small-border,
 .product img:hover,
-#btn-search,
 .de_tab.timeline li.active .dot,
 .btn-id,
 .tiny-border,
-#subheader .small-border-deco span,
 #services-list li a:hover,
 .timeline .tl-block .tl-line,
 .de_tab.tab_style_2 .de_nav li.active span,
@@ -70,8 +47,6 @@ section.call-to-action,
 .owl-custom-nav .btn-next:before,
 .owl-custom-nav .btn-prev:before,
 .timeline>li>.timeline-badge,
-.de_light .de_tab.tab_style_3 .de_nav li.active span,
-.de_tab.tab_style_4 .de_nav li.active span,
 .circle,
 .social-icons-sm i:hover,
 .btn-rsvp,
@@ -113,10 +88,7 @@ a.btn-border:hover,
 #topbar,
 footer,
 .feature-box.f-boxed.invert,
-.text-light .container-timeline ul li::before,
-.text-light .de_countdown,
 .de_tab .de_nav li.active span,
-.text-light .dropdown li span,
 .p-tagline,
 #selector #dark-mode,
 #selector #related-items,
@@ -126,7 +98,6 @@ footer,
 
 
 .id-color,
-#mainmenu li:hover>ul,
 .date-box .day,
 .slider_text h1,
 h1.id-color,
@@ -139,7 +110,6 @@ i.large:hover,
 .feature-box-small-icon-2 i,
 .pricing-dark .pricing-box li.price-row,
 .ratings i,
-header.smaller #mainmenu a.active,
 .pricing-dark .pricing-box li.price-row,
 .dark .feature-box-small-icon i,
 a.btn-slider:after,
@@ -158,8 +128,6 @@ address span strong,
 .crumb li .active,
 .btn-right:after,
 .btn-left:before,
-#mainmenu li a:after,
-header .info .social i:hover,
 #back-to-top:hover:before,
 #services-list li.active,
 #services-list li.active a:after,
@@ -238,8 +206,6 @@ a.btn-main,
 .testimonial-color .item:nth-child(2n) blockquote:before,
 a.btn-main.bg-color-2,
 a.btn-main.invert,
-#mainmenu li li a:hover,
-#mainmenu ul li:hover>a,
 .icon-box.invert:hover,
 #form_subscribe #btn-subscribe i.bg-color-secondary,
 #jpreBar,
@@ -256,7 +222,6 @@ a.btn-main.invert,
 .nft_coll_pp i,
 .profile_avatar i,
 #btn_copy.clicked,
-#form_quick_search #btn-submit i,
 .owl-dot.active,
 .p_list_pp i,
 .author_list_pp img,
@@ -268,7 +233,6 @@ a.btn-line:hover,
 a.btn-line.hover,
 .de_form input[type="checkbox"]:checked + label:before,
 .coll_list_pp i,
-#form_sb #btn-submit i,
 .de-switch input[type=checkbox]:checked + label,
 .nft__item_extra button:hover,
 .nft__item_share a {
@@ -288,17 +252,14 @@ a.btn-main.bg-color-3 {
     background: var(--secondary-color);
 }
 
-header.smaller,
 .bg-gradient-to-right,
 .post-image .post-info .inner,
 .switch::after,
 .accordion-section-title.active,
 .de_table.table-style-2:not(.no-heading) .tr:first-child,
 h1 .label,
-#menu-btn,
 a.btn-main.secondary,
 .accordion.secondary .accordion-section-title:before,
-header.header-gradient,
 .ribbon.s2,
 .table-pricing,
 .box-highlight {
@@ -383,12 +344,7 @@ a.btn-border.btn-invert,
     box-shadow: 0px 0px 0px 2px rgba(var(--secondary-color-rgb), 1);
 }
 
-.form-border input[type=text]:focus,
-.form-border textarea:focus,
-.form-underline input[type=email]:focus,
-.form-border input[type=date]:focus,
-.form-border select:focus,
-#quick_search:hover,
+
 .items_filter .dropdown:hover,
 .nft__item_share a:hover{
     webkit-box-shadow: 0px 0px 0px 4px rgba(var(--secondary-color-rgb), .3);
@@ -400,13 +356,6 @@ a.btn-border.btn-invert,
 blockquote {
     border-left-color: var(--primary-color);
 }
-
-header #mainmenu a span,
-header.transparent #mainmenu a span,
-.de-grey #subheader h1 {
-    border-bottom-color: var(--secondary-color);
-}
-
 
 .container-timeline ul li {
     border-top-color: var(--secondary-color);

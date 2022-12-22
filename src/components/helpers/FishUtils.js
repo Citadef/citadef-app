@@ -1,4 +1,4 @@
-import {EMPTYFISH} from "../loadingProcess"
+import EMPTYFISH from "components/errorPages/emptyFish";
 
 export const loadFish = (fishes, seed) => {
     let newFish;

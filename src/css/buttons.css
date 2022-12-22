@@ -1,0 +1,25 @@
+.btn-main {
+    text-align: center;
+    color: #fff;
+    border-radius: 6px;
+    -moz-border-radius: 6px;
+    -webkit-border-radius: 6px;
+    outline: 0;
+    font-weight: 800;
+    text-decoration: none;
+    padding: 8px 10px;
+    font-size: 14px;
+    border: none;
+}
+
+.btn-main:hover {
+    color: #fff;
+    -webkit-box-shadow: 3px 3px 20px 0px rgba(var(--secondary-color-rgb), 1);
+    -moz-box-shadow: 3px 3px 20px 0px rgba(var(--secondary-color-rgb), 1);
+    box-shadow: 3px 3px 20px 0px rgba(var(--secondary-color-rgb), 1);
+}
+
+.button-svg {
+    position:  absolute;
+    right:  0px;
+}

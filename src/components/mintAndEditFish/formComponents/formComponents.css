@@ -1,0 +1,46 @@
+.fish-input, .fish-input.form-control {
+    color:  white;
+    background-color: #6ED9F0;
+    border-radius: 25px;
+    width: 100%;
+}
+
+.fish-input::placeholder, .fish-input.form-control::placeholder {
+  color: white;
+  opacity: 1; /* Firefox */
+}
+
+.firstpost-box {
+    display: -webkit-box;
+    -webkit-line-clamp: 5;
+    -webkit-box-orient: vertical;
+}
+
+.firstpost-box-inner {
+    margin:  15px;
+}
+
+.firstpost-border {
+    border-style: solid;
+    border-width: 1px;
+    border-color:  white;
+    border-radius: 20px;
+    padding: 10px;
+}
+
+.post-box {
+    display: -webkit-box;
+    -webkit-line-clamp: 16;
+    -webkit-box-orient: vertical;
+    background-color: rgb(110, 217, 240, 0.7);
+    border-radius: 20px;
+}
+
+.fish-description {
+    resize:  none;
+}
+
+.fish-post {
+    width:  100%;
+    resize:  none;
+}
